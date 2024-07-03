@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="Javohir">
+        <createTable tableName="groups">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Javohir">
+        <createTable tableName="student">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="group_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_student_group" references="groups(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Javohir">
+        <renameColumn tableName="student" oldColumnName="first_name" newColumnName="name" columnDataType="varchar(255)"/>
+    </changeSet>
+    <changeSet id="4" author="Javohir">
+        <dropColumn tableName="student" columnName="last_name"/>
+    </changeSet>
+
+    <changeSet id="5" author="Javohir">
+        <renameColumn tableName="student" oldColumnName="name" newColumnName="full_name" columnDataType="varchar(255)"/>
+    </changeSet>
+
+</databaseChangeLog>
